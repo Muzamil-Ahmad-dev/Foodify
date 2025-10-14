@@ -1,0 +1,57 @@
+.stars, .stars2, .stars3 {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: transparent;
+  animation: animStar linear infinite;
+  background: transparent;
+}
+
+/* Layer 1 - far small stars */
+.stars {
+  box-shadow:
+    50px 100px #fff, 150px 400px #fff, 300px 200px #fff, 500px 700px #fff,
+    700px 300px #fff, 900px 800px #fff, 1100px 600px #fff, 1300px 400px #fff,
+    1500px 900px #fff, 1700px 200px #fff, 1900px 500px #fff, 2100px 100px #fff,
+    2300px 800px #fff, 2500px 600px #fff, 2700px 300px #fff, 2900px 900px #fff,
+    3100px 200px #fff, 3300px 700px #fff, 3500px 500px #fff, 3700px 800px #fff;
+  animation-duration: 120s;
+  opacity: 0.8;
+}
+
+/* Layer 2 - mid-distance brighter stars */
+.stars2 {
+  width: 3px;
+  height: 3px;
+  box-shadow:
+    100px 150px #fff, 200px 350px #fff, 400px 550px #fff, 600px 750px #fff,
+    800px 950px #fff, 1000px 1150px #fff, 1200px 1350px #fff, 1400px 1550px #fff,
+    1600px 1750px #fff, 1800px 1950px #fff, 2000px 2150px #fff, 2200px 2350px #fff,
+    2400px 2550px #fff, 2600px 2750px #fff, 2800px 2950px #fff;
+  animation-duration: 90s;
+  opacity: 0.9;
+}
+
+/* Layer 3 - closest & fastest tiny stars */
+.stars3 {
+  width: 1px;
+  height: 1px;
+  box-shadow:
+    75px 175px #fff, 175px 275px #fff, 275px 375px #fff, 375px 475px #fff,
+    475px 575px #fff, 575px 675px #fff, 675px 775px #fff, 775px 875px #fff,
+    875px 975px #fff, 975px 1075px #fff, 1075px 1175px #fff, 1175px 1275px #fff,
+    1275px 1375px #fff, 1375px 1475px #fff, 1475px 1575px #fff, 1575px 1675px #fff,
+    1675px 1775px #fff, 1775px 1875px #fff, 1875px 1975px #fff;
+  animation-duration: 60s;
+  opacity: 1;
+}
+
+/* Movement - stars scroll upward continuously */
+@keyframes animStar {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-2000px);
+  }
+}
