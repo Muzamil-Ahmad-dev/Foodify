@@ -7,7 +7,7 @@ import path from 'path'   // ✅ Add this line
 export default defineConfig({
   plugins: [
     react(),
-    tailwindcss(),
+    tailwindcss()
   ],
   build: {
     outDir: 'dist',
