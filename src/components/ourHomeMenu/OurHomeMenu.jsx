@@ -33,7 +33,7 @@ const OurHomeMenu = () => {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
 
-  const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const API_BASE_URL = import.meta.env.VITE_API_URL || "https://1e20a7ed-cc85-497b-b510-b41debc2f036-00-1p28dt788ywz9.pike.replit.dev/";
 
   /** Generate valid image URLs */
   const getImageUrl = (imagePath) => {
