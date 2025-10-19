@@ -21,7 +21,7 @@ import { addToCart } from "../../Redux/Slice/cartSlice";
 import "./SpecialOffer.css"; // Galaxy/star background animations
 
 // Backend endpoints
-const API_URL = "http://localhost:5000/api/menu";
+const API_URL = "https://1e20a7ed-cc85-497b-b510-b41debc2f036-00-1p28dt788ywz9.pike.replit.dev/api/menu";
 const IMAGE_BASE_URL = "http://localhost:5000/uploads/";
 
 /**

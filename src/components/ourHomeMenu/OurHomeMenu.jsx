@@ -1,12 +1,9 @@
 /**
- * @file OurHomeMenu.jsx
- * @description Displays dynamic restaurant menu fetched from backend.
- * Includes category filtering, animations, and Redux state management.
- *
- * @version 2.0.0
- * @since 2025-10-19
- * @author
- * Muzamil Ahmad
+ * OurHomeMenu.jsx
+ * --------------------------------------------------
+ * Displays the restaurant’s dynamic menu section.
+ * Fetches menu items from the backend API, categorizes them,
+ * and provides category-based filtering with animated UI cards.
  */
 
 import { useState, useEffect } from "react";
@@ -15,57 +12,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { setProducts } from "../../Redux/Slice/productSlice";
 import { addToCart } from "../../Redux/Slice/cartSlice";
 import { DollarSign } from "lucide-react";
-import axios from "axios";
 
 const OurHomeMenu = () => {
   const [activeCategory, setActiveCategory] = useState("");
   const [loading, setLoading] = useState(false);
   const [categories, setCategories] = useState([]);
-  const [error, setError] = useState("");
-
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
 
-  /** API base URL with fallback */
-  const API_BASE_URL =
-    import.meta.env.VITE_API_URL ||
-    "https://1e20a7ed-cc85-497b-b510-b41debc2f036-00-1p28dt788ywz9.pike.replit.dev";
+  // ✅ Fixed API URL (your live Replit backend)
+  const API_BASE_URL = "https://1e20a7ed-cc85-497b-b510-b41debc2f036-00-1p28dt788ywz9.pike.replit.dev";
 
-  /** Axios instance with defaults */
-  const axiosInstance = axios.create({
-    baseURL: API_BASE_URL,
-    timeout: 10000,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
-
-  /** Helper: Generate valid image URLs */
+  /** Generate valid image URLs */
   const getImageUrl = (imagePath) => {
     if (!imagePath) return "/placeholder.svg";
     if (imagePath.startsWith("http")) return imagePath;
     return `${API_BASE_URL}/${imagePath.replace(/\\/g, "/")}`;
   };
 
-  /** Fetch menu data */
+  /** Fetch menu data from API */
   const fetchMenuItems = async () => {
     try {
       setLoading(true);
-      setError("");
+      const response = await fetch(`${API_BASE_URL}/api/menu`);
+      const data = await response.json();
 
-      const response = await axiosInstance.get("/api/menu");
-      const { data } = response;
-
-      if (!data.success || !data.data)
-        throw new Error(data.message || "Failed to fetch menu items");
+      if (!data.success) throw new Error("Failed to fetch menu items");
 
       const formattedData = data.data.map((item) => ({
         id: item._id,
         name: item.name?.trim() || "Unnamed Item",
         description: item.description || "No description available.",
-        category: item.category
-          ? item.category.trim().toUpperCase()
-          : "OTHER",
+        category: item.category ? item.category.trim().toUpperCase() : "OTHER",
         price: Number(item.price) || 0,
         image: getImageUrl(item.image),
       }));
@@ -78,9 +56,6 @@ const OurHomeMenu = () => {
         setActiveCategory(uniqueCats[0]);
     } catch (err) {
       console.error("Menu Fetch Error:", err.message);
-      setError(
-        err.response?.data?.message || "Failed to load menu. Please try again."
-      );
     } finally {
       setLoading(false);
     }
@@ -89,7 +64,6 @@ const OurHomeMenu = () => {
   /** Load menu on mount */
   useEffect(() => {
     fetchMenuItems();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   /** Filter products by active category */
@@ -118,21 +92,14 @@ const OurHomeMenu = () => {
     hover: { scale: 1.05, y: -10, transition: { duration: 0.3 } },
   };
 
-  /** Main UI */
   return (
     <div className="min-h-screen bg-gradient-to-b from-amber-900 to-amber-950 py-16 px-4 relative overflow-hidden">
-      {/* Animated background layers */}
-      <div className="stars"></div>
-      <div className="stars2"></div>
-      <div className="stars3"></div>
-
       <motion.div
         className="max-w-7xl mx-auto relative z-10"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
-        {/* Section Header */}
         <motion.div className="text-center mb-12" variants={itemVariants}>
           <h1 className="text-5xl md:text-6xl font-serif text-yellow-400 mb-4 font-light tracking-wide">
             Our Exquisite Menu
@@ -176,10 +143,6 @@ const OurHomeMenu = () => {
             <div className="text-white col-span-full text-center py-12">
               Loading menu...
             </div>
-          ) : error ? (
-            <div className="text-red-400 col-span-full text-center py-12">
-              {error}
-            </div>
           ) : filteredProducts.length > 0 ? (
             filteredProducts.map((item, index) => (
               <motion.div
@@ -191,7 +154,6 @@ const OurHomeMenu = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
               >
-                {/* Image */}
                 <div className="relative h-48 bg-amber-800/30 overflow-hidden">
                   <img
                     src={item.image}
@@ -202,7 +164,6 @@ const OurHomeMenu = () => {
                   <div className="absolute inset-0 bg-gradient-to-t from-amber-900/80 to-transparent" />
                 </div>
 
-                {/* Info */}
                 <div className="p-6">
                   <h3 className="text-2xl font-serif text-yellow-400 mb-2 italic">
                     {item.name}
@@ -211,7 +172,6 @@ const OurHomeMenu = () => {
                     {item.description}
                   </p>
 
-                  {/* Price & Button */}
                   <div className="flex items-center justify-between">
                     <span className="flex items-center gap-1 text-2xl font-bold text-yellow-400">
                       <DollarSign className="w-5 h-5 text-yellow-400" />{" "}
