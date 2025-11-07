@@ -58,7 +58,7 @@ export default function LoginModal({ isOpen, onClose }) {
       setLoading(true);
 
       // 🔹 Send login request
-      const res = await fetch("http://localhost:5000/api/auth/login", {
+      const res = await fetch("https://1e20a7ed-cc85-497b-b510-b41debc2f036-00-1p28dt788ywz9.pike.replit.dev/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
@@ -77,7 +77,7 @@ export default function LoginModal({ isOpen, onClose }) {
       localStorage.setItem("user", JSON.stringify(data.data));
 
       // 🔹 Immediately fetch user orders after login
-      const ordersRes = await fetch("http://localhost:5000/api/orders", {
+      const ordersRes = await fetch("https://1e20a7ed-cc85-497b-b510-b41debc2f036-00-1p28dt788ywz9.pike.replit.dev/api/orders", {
         headers: { Authorization: `Bearer ${data.data.token}` },
       });
       const ordersData = await ordersRes.json();

@@ -65,7 +65,7 @@ export default function OrderHistory() {
       }
 
       // API call to fetch orders
-      const res = await fetch("http://localhost:5000/api/orders", {
+      const res = await fetch("https://1e20a7ed-cc85-497b-b510-b41debc2f036-00-1p28dt788ywz9.pike.replit.dev/api/orders", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

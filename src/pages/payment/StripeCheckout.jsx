@@ -61,7 +61,7 @@ function CheckoutForm({ totalAmount, setPaymentDone, onPaymentSuccess }) {
     setLoading(true);
     try {
       // Create a Payment Intent on backend
-      const res = await fetch("http://localhost:5000/api/payment/create-payment-intent", {
+      const res = await fetch("https://1e20a7ed-cc85-497b-b510-b41debc2f036-00-1p28dt788ywz9.pike.replit.dev/api/payment/create-payment-intent", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

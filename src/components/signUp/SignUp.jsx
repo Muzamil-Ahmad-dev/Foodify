@@ -75,7 +75,7 @@ export default function SignUp() {
     try {
       setLoading(true);
 
-      const res = await fetch("http://localhost:5000/api/auth/register", {
+      const res = await fetch("https://1e20a7ed-cc85-497b-b510-b41debc2f036-00-1p28dt788ywz9.pike.replit.dev/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -97,7 +97,7 @@ export default function SignUp() {
       localStorage.setItem("user", JSON.stringify(data.data));
 
       // Fetch user orders after registration
-      const ordersRes = await fetch("http://localhost:5000/api/orders", {
+      const ordersRes = await fetch("https://1e20a7ed-cc85-497b-b510-b41debc2f036-00-1p28dt788ywz9.pike.replit.dev/api/orders", {
         headers: { Authorization: `Bearer ${data.data.token}` },
       });
       const ordersData = await ordersRes.json();
